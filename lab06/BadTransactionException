@@ -1,0 +1,10 @@
+public class BadTransactionException extends Exception{
+	public int amount;
+
+	public BadTransaction(int wrongAmount){
+		super("Invalid amount" + wrongAmount);
+
+		amount = wrongAmount;
+	}
+
+}
