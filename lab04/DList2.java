@@ -74,13 +74,25 @@ public class DList2 {
    *  insertFront() inserts an item at the front of a DList2.
    */
   public void insertFront(int i) {
-    DListNode2 tmpNode = new DListNode2(i);
-    tmpNode.prev = head;
-    tmpNode.next = head.next;
-    head.next.prev = tmpNode;
-    head.next = tmpNode;
+    // Fixed insertFront
+    DListNode2 temp = new DListNode2();
+    temp.item = i;
+    temp.next = head.next;
+    temp.prev = head;
+    head.next.prev = temp;
+    head.next = temp;
     size++;
-  }
+
+
+    /**
+     *DListNode2 tmpNode = new DListNode2(i);
+     *tmpNode.prev = head;
+     *tmpNode.next = head.next;
+     *head.next.prev = tmpNode;
+     *head.next = tmpNode;
+     *size++;
+     *}
+     */ 
 
   /**
    *  removeFront() removes the first item (and first non-sentinel node) from
