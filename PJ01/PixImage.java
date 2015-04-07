@@ -181,36 +181,93 @@ public class PixImage {
    */
   public PixImage boxBlur(int numIterations) {
     // Replace the following line with your solution.
-
-    if(numIterations == 0)
+    int count;
+    PixImage image = new PixImage(this.width, this.height);
+    //default position is at i,j
+    if(numIterations <= 0)
       return this;
 
-    PixImage image = new PixImage(this.width, this.height);
-    for(int iter = 0; iter < numIterations; iter++)
-      for(int i = 0; i < this.width; i++)
+    for(int iter = 0; iter < numIterations; iter++){
+      PixImage blurred = new PixImage(this.width, this.height);
+      for(int i = 0; i < this.width; i++){
         for(int j = 0; j < this.height; j++){
-                if(i>0 && j>0)
-                    a.add(pic[i-1][j-1]);
-                if(j>0)
-                    a.add(pic[i][j-1]);
-                if(i<width-1 && j>0)
-                    a.add(pic[i+1][j-1]);
-                if(i>0)
-                    a.add(pic[i-1][j]);
-                if(i<width-1)
-                    a.add(pic[i+1][j]);
-                if(i>0 && j<height-1)
-                    a.add(pic[i-1][j+1]);
-                if(i<width-1 && j<height-1)
-                    a.add(pic[i+1][j+1]);
-                if(j<height-1)
-                    a.add(pic[i][j+1]);
-                if(true)
-                    a.add(pic[i][j]);
+                if(true){
+                    image.pic[i][j].red = image.pic[i][j].red;
+                    image.pic[i][j].green = image.pic[i][j].green;
+                    image.pic[i][j].blue = image.pic[i][j].blue;
+                    count += 1
+                  }
+                if(i>0 && j>0){
+                    //a.add(pic[i-1][j-1]);
+                    image.pic[i][j].red += image.pic[i-1][j-1].red;
+                    image.pic[i][j].green += image.pic[i-1][j-1].green;
+                    image.pic[i][j].blue += image.pic[i-1][j-1].blue;
+                    count += 1;
+                  }
+                if(j>0){
+                    //a.add(pic[i][j-1]);
+                    image.pic[i][j].red += image.pic[i][j-1].red;
+                    image.pic[i][j].green += image.pic[i][j-1].green;
+                    image.pic[i][j].blue += image.pic[i][j-1].blue;
+                    count += 1;
+                  }
+                if(i<width-1 && j>0){
+                    //a.add(pic[i+1][j-1]);
+                    image.pic[i][j].red += image.pic[i+1][j-1].red;
+                    image.pic[i][j].green += image.pic[i+1][j-1].green;
+                    image.pic[i][j].blue += image.pic[i+1][j-1].blue;
+                    count += 1;
+                  }
+                if(i>0){
+                    //a.add(pic[i-1][j]);
+                    image.pic[i][j].red += image.pic[i-1][j].red;
+                    image.pic[i][j].green += image.pic[i-1][j].green;
+                    image.pic[i][j].blue += image.pic[i-1][j].blue;
+                    count += 1;
+                  }
+                if(i<width-1){         
+                    //a.add(pic[i+1][j]);
+                    image.pic[i][j].red += image.pic[i][j].red;
+                    image.pic[i][j].green += image.pic[i][j].green;
+                    image.pic[i][j].blue += image.pic[i][j].blue;
+                    count += 1;
+                  }
+                if(i>0 && j<height-1){
+                    //a.add(pic[i-1][j+1]);
+                    image.pic[i][j].red += image.pic[i-1][j+1].red;
+                    image.pic[i][j].green += image.pic[i-1][j+1].green;
+                    image.pic[i][j].blue += image.pic[i-1][j+1].blue;
+                    count += 1;
+                  }
+                if(i<width-1 && j<height-1){
+                    //a.add(pic[i+1][j+1]);
+                    image.pic[i][j].red += image.pic[i+1][j+1].red;
+                    image.pic[i][j].green += image.pic[i+1][j+1].green;
+                    image.pic[i][j].blue += image.pic[i+1][j+1].blue;
+                    count += 1;
+                  }
+                if(j<height-1){
+                    //a.add(pic[i][j+1]);
+                    image.pic[i][j].red += image.pic[i][j+1].red;
+                    image.pic[i][j].green += image.pic[i][j+1].green;
+                    image.pic[i][j].blue += image.pic[i][j+1].blue;
+                    count += 1;
+                  } 
 
+              red = short(image.pic[i][j].red/count);
+              green = short(image.pic[i][j].green/count);
+              blue = short(image.pic[i][j].blue/count);
+
+              blurred.setPixel(i, j, red, green, blue)
+
+              } 
+
+              image = blurred;
+            }
           }
+
+          return image;
         }
-  }
 
   /**
    * mag2gray() maps an energy (squared vector magnitude) in the range

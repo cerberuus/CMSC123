@@ -31,7 +31,9 @@ public class RunLengthEncoding implements Iterable {
    */
 
 
-
+    private width;
+    private height;
+    private DList list;
 
   /**
    *  The following methods are required for Part II.
@@ -48,6 +50,12 @@ public class RunLengthEncoding implements Iterable {
 
   public RunLengthEncoding(int width, int height) {
     // Your solution here.
+    this.width = width;
+    this.height = height;
+    list = new DList();
+    Pixel black = new Pixel();
+    Node x = new Node(black, (width*height));
+    list.insert(x);
   }
 
   /**
@@ -74,6 +82,10 @@ public class RunLengthEncoding implements Iterable {
   public RunLengthEncoding(int width, int height, int[] red, int[] green,
                            int[] blue, int[] runLengths) {
     // Your solution here.
+    this.width = width;
+    this.height = height;
+    list = new DList();
+
   }
 
   /**
@@ -85,7 +97,7 @@ public class RunLengthEncoding implements Iterable {
 
   public int getWidth() {
     // Replace the following line with your solution.
-    return 1;
+    return this.width;
   }
 
   /**
@@ -96,7 +108,7 @@ public class RunLengthEncoding implements Iterable {
    */
   public int getHeight() {
     // Replace the following line with your solution.
-    return 1;
+    return this.height;
   }
 
   /**
