@@ -1,13 +1,13 @@
 public class Pixel{
 	
-	private short red, green, blue;
+	short red, green, blue;
 
-	public short Pixel(){
+	public Pixel(){
 		this.red = 0;
 		this.green = 0;
 		this.blue = 0;
 	}
-	public short Pixel(short red, short green, short blue){
+	public Pixel(short red, short green, short blue){
 		this.red = red;
 		this.green = green;
 		this.blue = blue;
@@ -51,4 +51,14 @@ public class Pixel{
 		return str;
 
 	}
+
+	public Pixel multiply(int x)
+    {
+        Pixel res = new Pixel();
+        res.red = (short)(x*red);
+        res.blue = (short)(x*blue);
+        res.green = (short)(x*green);
+        return res;
+
+    }
 }
