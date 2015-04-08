@@ -1,6 +1,6 @@
 public class Pixel{
 	
-	short red, green, blue;
+	private short red, green, blue;
 
 	public Pixel(){
 		this.red = 0;
@@ -60,5 +60,11 @@ public class Pixel{
         res.green = (short)(x*green);
         return res;
 
+    }
+
+    public short add(PixImage[][] pic, int x, int y){
+    	Pixel pix = new Pixel(red, green, blue);
+
+    	
     }
 }

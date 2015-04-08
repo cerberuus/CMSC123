@@ -74,7 +74,7 @@ public class PixImage {
    */
   public short getRed(int x, int y) {
     // Replace the following line with your solution.
-    return pic[x][y].red;
+    return pic[x][y].getRed();
   }
 
   /**
@@ -86,7 +86,7 @@ public class PixImage {
    */
   public short getGreen(int x, int y) {
     // Replace the following line with your solution.
-    return pic[x][y].green;
+    return pic[x][y].getGreen();
   }
 
   /**
@@ -98,7 +98,7 @@ public class PixImage {
    */
   public short getBlue(int x, int y) {
     // Replace the following line with your solution.
-    return pic[x][y].blue;
+    return pic[x][y].getBlue();
   }
 
   /**
@@ -141,9 +141,9 @@ public class PixImage {
 
     for(int i = 0; i < w; i++)
       for(int j = 0; j < h; j++){
-        str += "R" + pic[x][y].getRed();
-        str += " G" + pic[x][y].getGreen();
-        str += " B" + pic[x][y].getBlue() + "\n";
+        str += "R" + pic[i][j].getRed();
+        str += " G" + pic[i][j].getGreen();
+        str += " B" + pic[i][j].getBlue() + "\n";
       }
 
     return str;
@@ -182,6 +182,7 @@ public class PixImage {
   public PixImage boxBlur(int numIterations) {
     // Replace the following line with your solution.
     int count;
+    short red, blue, green;
     PixImage image = new PixImage(this.width, this.height);
     //default position is at i,j
     if(numIterations <= 0)
@@ -192,10 +193,11 @@ public class PixImage {
       for(int i = 0; i < this.width; i++){
         for(int j = 0; j < this.height; j++){
                 if(true){
-                    image.pic[i][j].red = image.pic[i][j].red;
-                    image.pic[i][j].green = image.pic[i][j].green;
-                    image.pic[i][j].blue = image.pic[i][j].blue;
-                    count += 1
+                    image.pic[i][j].red += image.pic[i][j].red;
+                    image.pic[i][j].green += image.pic[i][j].green;
+                    image.pic[i][j].blue += image.pic[i][j].blue;
+                    count = 0;
+                    count += 1;
                   }
                 if(i>0 && j>0){
                     //a.add(pic[i-1][j-1]);
@@ -248,17 +250,17 @@ public class PixImage {
                   }
                 if(j<height-1){
                     //a.add(pic[i][j+1]);
-                    image.pic[i][j].red += image.pic[i][j+1].red;
-                    image.pic[i][j].green += image.pic[i][j+1].green;
-                    image.pic[i][j].blue += image.pic[i][j+1].blue;
+                    image.pic[i][j].red += image.pic[i][j+1].getRed();
+                    image.pic[i][j].green += image.pic[i][j+1].getGreen();
+                    image.pic[i][j].blue += image.pic[i][j+1].getBlue();
                     count += 1;
                   } 
 
-              red = short(image.pic[i][j].red/count);
-              green = short(image.pic[i][j].green/count);
-              blue = short(image.pic[i][j].blue/count);
+              red = (short)((image.pic[i][j].red) / count);
+              green = (short)((image.pic[i][j].green) / count);
+              blue = (short)((image.pic[i][j].blue) / count);
 
-              blurred.setPixel(i, j, red, green, blue)
+              blurred.setPixel(i, j, red, green, blue);
 
               } 
 
@@ -309,11 +311,37 @@ public class PixImage {
    * @return a grayscale PixImage representing the edges of the input image.
    * Whiter pixels represent stronger edges.
    */
+
+  /**public int[][] Gradient(){
+    int[][] energy = new int[width][height];
+        
+        for(int i=1; i<=width; i++)
+        {       
+            for(int j=1; j<=height; j++)
+            {
+                int[][] Gx = new int[][]{{1,0,-1}, {2,0,-2}, {1,0,-1}};
+                int[][] Gy = new int[][]{{1,2,1}, {0,0,0}, {-1,-2,-1}};
+                //pixel[][] x = new Pixel[][]{{p[i-1][j-1], p[i-1][j], p[i-1][j+1]},{p[i][j-1], p[i][j], p[i][j+1]},{p[i+1][j-1], p[i+1][j], p[i+1][j+1]}};
+                Matrix mat = new Matrix(x);
+                Pixel gradx = mat.product(Gx).sum();
+                Pixel grady = mat.product(Gy).sum();
+
+                energy[i-1][j-1] = gradx.squareSum() + grady.squareSum();
+            }
+        }  
+        return energy;
+  }**/
+
   public PixImage sobelEdges() {
     // Replace the following line with your solution.
     return this;
     // Don't forget to use the method mag2gray() above to convert energies to
     // pixel intensities.
+
+    //PixImage sobelMani = new PixImage(this.width, this.height);
+    //int gx, gy;
+
+    //return sobelMani;
   }
 
 
