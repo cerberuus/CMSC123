@@ -20,7 +20,9 @@ public class HashTableChained implements Dictionary {
    *  Place any data fields here.
    **/
 
-
+    public DList[] list;
+    protected int hashSize;
+    private final static int HASHDEFAULT = 101;
 
   /** 
    *  Construct a new empty hash table intended to hold roughly sizeEstimate
@@ -29,6 +31,8 @@ public class HashTableChained implements Dictionary {
    **/
 
   public HashTableChained(int sizeEstimate) {
+    list = new DList[sizeEstimate];
+    hashSize = 0;
     // Your solution here.
   }
 
@@ -38,6 +42,8 @@ public class HashTableChained implements Dictionary {
    **/
 
   public HashTableChained() {
+    list = new DList[HASHDEFAULT];
+    hashSize = 0;
     // Your solution here.
   }
 
@@ -50,8 +56,9 @@ public class HashTableChained implements Dictionary {
    **/
 
   int compFunction(int code) {
+    int compCoeff = ((89 * code + 997) % Integer.MAX_VALUE) % list.length;
     // Replace the following line with your solution.
-    return 88;
+    return compCoeff;
   }
 
   /** 
@@ -63,7 +70,7 @@ public class HashTableChained implements Dictionary {
 
   public int size() {
     // Replace the following line with your solution.
-    return 0;
+    return list.length;
   }
 
   /** 
@@ -73,7 +80,8 @@ public class HashTableChained implements Dictionary {
    **/
 
   public boolean isEmpty() {
-    // Replace the following line with your solution.
+      if(list.length <= 0)
+        return false;
     return true;
   }
 
@@ -91,8 +99,21 @@ public class HashTableChained implements Dictionary {
    **/
 
   public Entry insert(Object key, Object value) {
+    Entry newEntry = new Entry();
+    newEntry.key = key;
+    newEntry.value = value;
+    int index = Math.abs(compFunction(key.hashCode()));
+    if(list[index] == null){
+      DList insertItem = new DList();
+      insertItem.insertFront(newEntry);
+      list[index] = insertItem;
+    }
+    else{
+      list[index].insertFront(newEntry);
+    }
+    hashSize++;
     // Replace the following line with your solution.
-    return null;
+    return newEntry;
   }
 
   /** 
@@ -109,6 +130,22 @@ public class HashTableChained implements Dictionary {
 
   public Entry find(Object key) {
     // Replace the following line with your solution.
+    int index = Math.abs(compFunction(key.hashCode()));
+    
+    if(list[index] == null){
+        return null;
+    }
+      Entry entry = new Entry();
+      entry = list[index];
+      DListNode nodePointer = null;
+        while(entry != null){
+          if(!(entry.key.equals(key))){
+            nodePointer = nodePointer.next;
+          }
+          else{
+            return entry;
+          }
+        }
     return null;
   }
 
@@ -127,13 +164,36 @@ public class HashTableChained implements Dictionary {
 
   public Entry remove(Object key) {
     // Replace the following line with your solution.
-    return null;
+    /************************************************/
+    int index = Math.abs(compFunction(key.hashCode()));
+    Entry entry = list[index];  
+
+    if(entry != null){
+      DListNode nodePointer = null;
+      while(!(entry.key.equals.key)){ // while key is not equal to @param key, traverse
+        if(entry.find(key).equals(key)){ 
+            nodePointer.remove(key);
+            entry = nodePointer;
+            list[index] = entry;
+            hashSize--;
+            return entry;
+        }
+        else {
+          nodePointer = nodePointer.next;
+        }
+      }
+    }
+    else {
+      return null;
+    }
   }
 
   /**
    *  Remove all entries from the dictionary.
    */
   public void makeEmpty() {
+    list = new DList[list.length - 1];
+    hashSize = 0;
     // Your solution here.
   }
 

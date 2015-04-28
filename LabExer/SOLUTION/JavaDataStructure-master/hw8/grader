@@ -1,0 +1,25 @@
+GRADER file for Homework 8
+
+ Your Name:  
+Your Login:  
+
+Part III.  Running time comparisons
+
+  List size         mergesort             quicksort
+       10             0                       0  
+      100             1                       1
+    1,000             11                      3
+   10,000             30                     20
+  100,000             337                   153
+
+Part IV.
+
+  Is mergesort stable?  
+  Why or why not?
+  Not really, as my opionion, whether the mergesort is stable is dependent on the comparison, if we set this way:
+  if I1 top item is small or equal to I2, then set top I1 into the list, thus we will get the stable mergesort. If 
+  in the other way, we will get the unstable result.
+
+  Is quicksort stable?  
+  Why or why not?
+  Yes, Since if we suffers the equal, we will use the queue(linkedList) to store the result, which FIFO, it is stable.
